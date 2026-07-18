@@ -2,8 +2,6 @@
 
 
 print("hello everyone")
-int x=32
-int y=2
-int c= x+y
-print(c)
+x=32
+print(x)
 
