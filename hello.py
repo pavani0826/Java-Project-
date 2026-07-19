@@ -2,6 +2,17 @@
 
 
 print("hello everyone")
-x=32
-print(x)
+function():
+    a=22
+    d=33
 
+
+
+    return c
+
+function()
+
+
+
+
+test()
