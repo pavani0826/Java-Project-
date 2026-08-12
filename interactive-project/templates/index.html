@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Brain not Braining</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+
+            background:
+                linear-gradient(
+                    rgba(5, 10, 25, 0.45),
+                    rgba(5, 10, 25, 0.55)
+                ),
+                url("/static/cat.png");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            color: white;
+        }
+
+        /* ---------- TOP BAR ---------- */
+
+        .topbar {
+            position: fixed;
+            top: 16px;
+            left: 20px;
+            right: 20px;
+
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 30px;
+
+            background: rgba(25, 42, 68, 0.88);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+
+            backdrop-filter: blur(12px);
+
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+
+            z-index: 10;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .brain-icon {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .pink {
+            color: #f15bb5;
+        }
+
+        .messages {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 18px;
+        }
+
+        .message-icon {
+            color: #f15bb5;
+            font-size: 23px;
+        }
+
+
+        /* ---------- MAIN AREA ---------- */
+
+        .main {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding-top: 100px;
+        }
+
+
+        /* ---------- GLASS CARD ---------- */
+
+        .card {
+            width: 63%;
+            max-width: 980px;
+            min-height: 455px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 45px;
+
+            background: rgba(35, 38, 48, 0.55);
+
+            border: 1px solid rgba(255, 255, 255, 0.18);
+
+            border-radius: 30px;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+
+            text-align: center;
+        }
+
+
+        /* ---------- CARD CONTENT ---------- */
+
+        .card-brain {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .card h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+
+            color: white;
+        }
+
+        .subtitle {
+            font-size: 19px;
+            color: #e0e0e0;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* ---------- MESSAGE INPUT ---------- */
+
+        form {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .message-box {
+            width: 92%;
+            height: 95px;
+
+            padding: 22px 24px;
+
+            border: 2px solid #f15bb5;
+            border-radius: 18px;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            color: #333;
+
+            font-size: 18px;
+            font-family: Arial, Helvetica, sans-serif;
+
+            outline: none;
+
+            resize: none;
+
+            box-shadow:
+                0 0 12px rgba(241, 91, 181, 0.15);
+        }
+
+        .message-box::placeholder {
+            color: #777;
+        }
+
+        .message-box:focus {
+            border-color: #ff4fae;
+
+            box-shadow:
+                0 0 18px rgba(241, 91, 181, 0.35);
+        }
+
+
+        /* ---------- DONE BUTTON ---------- */
+
+        .done-button {
+            margin-top: 32px;
+
+            padding: 15px 48px;
+
+            border: none;
+            border-radius: 13px;
+
+            background: linear-gradient(
+                135deg,
+                #e83e9f,
+                #d94a9d
+            );
+
+            color: white;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px rgba(216, 62, 150, 0.3);
+
+            transition: all 0.2s ease;
+        }
+
+        .done-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 25px rgba(216, 62, 150, 0.45);
+        }
+
+        .done-button:active {
+            transform: translateY(0);
+        }
+
+
+        /* ---------- MOBILE ---------- */
+
+        @media (max-width: 800px) {
+
+            .topbar {
+                left: 10px;
+                right: 10px;
+
+                padding: 0 18px;
+            }
+
+            .logo-text {
+                font-size: 19px;
+            }
+
+            .messages {
+                display: none;
+            }
+
+            .card {
+                width: 90%;
+                padding: 35px 20px;
+            }
+
+            .card h1 {
+                font-size: 29px;
+            }
+
+            .message-box {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="logo-section">
+
+            <div class="brain-icon">
+                🧠
+            </div>
+
+            <div class="logo-text">
+                Hey well to
+                <span class="pink">Brain not braining</span>
+            </div>
+
+        </div>
+
+
+        <div class="messages">
+
+            <span class="message-icon">▣</span>
+
+            <span>Your Messages</span>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main">
+
+        <section class="card">
+
+            <div class="card-brain">
+                🧠
+            </div>
+
+            <h1>
+                What's on your mind?
+            </h1>
+
+            <p class="subtitle">
+                Share your thoughts, ideas, or anything!
+            </p>
+
+
+            <form method="POST">
+
+                <textarea
+                    class="message-box"
+                    name="message"
+                    placeholder="Type your message here..."
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="done-button"
+                >
+                    ✓ &nbsp; DONE
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+services:
+
+  flask:
+    container_name: Flask
+    build:
+      context: .
+
+    environment:
+       DB_HOST: mysql
+       DB_USER: root
+       DB_PASSWORD: root
+       DB_NAME: texts
+
+    networks:
+      - innet
+
+    depends_on:
+       mysql:
+          condition: service_healthy
+
+    ports:
+      - "5000:5000"
+    
+  
+  mysql:
+    container_name: Mysql
+    image: mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: texts
+
+    networks:
+      - innet
+    
+    volumes:
+      - invol:/var/lib/mysql
+      - ./message.sql:/docker-entrypoint-initdb.d/message.sql
+
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-uroot","-proot"]
+      interval: 10s
+      retries: 5
+      start_period: 60s
+      timeout: 10s
+
+networks:
+  innet:
+
+volumes:
+  invol:
+
+    
