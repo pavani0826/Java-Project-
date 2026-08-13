@@ -1,0 +1,53 @@
+services:
+
+  java:
+    container_name: Java
+    build:
+      context: .
+    
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: list
+
+    networks:
+      - outnet
+
+    ports:
+      - "8080:8080"
+ 
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+
+  mysql:
+    container_name: Mysql
+    image: mysql
+
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: list
+
+
+    networks:
+      - outnet
+
+    volumes:
+      - outvol:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD","mysqladmin","ping","-h","localhost","-uroot","-proot"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
+      start_period: 60s
+
+networks:
+  outnet:
+
+volumes:
+  outvol:
+
+
